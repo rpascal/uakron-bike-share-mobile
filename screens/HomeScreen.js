@@ -1,20 +1,20 @@
-import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
 import { WebBrowser } from 'expo';
+import React from 'react';
+import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import FetchLocation from '../components/FetchLocation';
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
+  };
+
+  getUserLocationHandler = () =>{
+    console.log("Hello",navigator.geolocation);
+    navigator.geolocation.getCurrentPosition(position => {
+      console.log(position);
+    }, err =>  console.log(err));
   };
 
   render() {
@@ -30,12 +30,15 @@ export default class HomeScreen extends React.Component {
               }
               style={styles.welcomeImage}
             />
+
+              <FetchLocation onGetLocation={this.getUserLocationHandler} />
+
           </View>
 
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
 
-            <Text style={styles.getStartedText}>Get started by opening Hello</Text>
+            <Text style={styles.getStartedText}>Get started by opening Test</Text>
 
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
